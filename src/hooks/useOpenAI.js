@@ -74,10 +74,10 @@ export function useOpenAI(apiKey) {
 
       const transcription = await response.json();
 
-      // Apply NLP sentence alignment to segments
-      if (transcription.segments && transcription.segments.length > 0) {
-        transcription.segments = nlpPreciseAlign(transcription.segments);
-      }
+      // Apply NLP sentence alignment to segments (temporarily disabled)
+      // if (transcription.segments && transcription.segments.length > 0) {
+      //   transcription.segments = nlpPreciseAlign(transcription.segments);
+      // }
 
       return transcription;
     } catch (err) {
