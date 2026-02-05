@@ -2,16 +2,21 @@
 import nlp from 'compromise';
 
 /**
- * NLP-based timestamp alignment
+ * NLP-based timestamp alignment with Smart Merge
  * Merges raw Whisper segments into natural sentence boundaries
- * Port of fix_segment_nlp.py
+ * Port of fix_segment_nlp_merge_timestamp.py
+ * 
+ * @param {Array} segments - Raw segments from Whisper
+ * @param {number} minGap - Minimum gap between sentences to keep them separate (default: 0.5s)
+ * @param {number} maxBlockDuration - Maximum duration for a merged block (default: 12s)
  */
-export function nlpPreciseAlign(segments) {
+export function nlpPreciseAlign(segments, minGap = 0.5, maxBlockDuration = 12.0) {
   if (!segments || segments.length === 0) return [];
 
   let fullText = '';
   const charTimeMap = [];
 
+  // --- STEP 1: Merge and Map ---
   for (const item of segments) {
     const text = item.text?.trim();
     if (!text) continue;
@@ -20,12 +25,15 @@ export function nlpPreciseAlign(segments) {
     const end = item.end;
     const duration = end - start;
     const segLen = text.length;
+    if (segLen === 0) continue;
+
     const timePerChar = duration / segLen;
 
     // Add space between segments if needed
     if (fullText && !fullText.endsWith(' ')) {
       fullText += ' ';
-      charTimeMap.push(start);
+      // Space takes the time of the previous segment's end
+      charTimeMap.push(charTimeMap.length > 0 ? charTimeMap[charTimeMap.length - 1] : start);
     }
 
     fullText += text;
@@ -37,11 +45,11 @@ export function nlpPreciseAlign(segments) {
     }
   }
 
-  // Use compromise to split into sentences
+  // --- STEP 2: Split into sentences using NLP ---
   const doc = nlp(fullText);
   const sentences = doc.sentences().out('array');
 
-  const newData = [];
+  const tempSentences = [];
   let currentPos = 0;
 
   for (const sentText of sentences) {
@@ -62,15 +70,45 @@ export function nlpPreciseAlign(segments) {
     const realStart = charTimeMap[safeStartIdx] || 0;
     const realEnd = charTimeMap[safeEndIdx] || realStart;
 
-    newData.push({
+    tempSentences.push({
       start: Math.round(realStart * 1000) / 1000,
       end: Math.round(realEnd * 1000) / 1000,
       text: trimmed
     });
   }
 
-  return newData;
+  // --- STEP 3: Smart Merge ---
+  if (tempSentences.length === 0) return [];
+
+  const mergedData = [];
+  let currentBlock = { ...tempSentences[0] };
+
+  for (let i = 1; i < tempSentences.length; i++) {
+    const nextSent = tempSentences[i];
+
+    // Criterion 1: Gap between sentences
+    const gap = nextSent.start - currentBlock.end;
+
+    // Criterion 2: Would merging exceed max block duration?
+    const potentialDuration = nextSent.end - currentBlock.start;
+
+    // If gap is small AND duration limit is not exceeded -> MERGE
+    if (gap < minGap && potentialDuration < maxBlockDuration) {
+      currentBlock.end = nextSent.end;
+      currentBlock.text += ' ' + nextSent.text;
+    } else {
+      // Otherwise, save current block and start new one
+      mergedData.push(currentBlock);
+      currentBlock = { ...nextSent };
+    }
+  }
+
+  // Add the last remaining block
+  mergedData.push(currentBlock);
+
+  return mergedData;
 }
+
 
 /**
  * Escape single quotes for SQL strings
