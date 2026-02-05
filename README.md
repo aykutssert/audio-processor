@@ -1,36 +1,36 @@
 # Audio Processor (Podcast Tool)
 
-Podcast üretim sürecini otomatize eden profesyonel bir araç. OpenAI TTS, Whisper ve FFmpeg kullanarak ses üretiminden SQL çıktılarına kadar tüm akışı yönetir.
+A professional tool designed to automate the podcast production workflow. It manages the entire process from audio generation to SQL outputs using OpenAI TTS, Whisper, and FFmpeg.
 
-## Özellikler
+## Features
 
-- **Audio Üretimi:** OpenAI TTS (Text-to-Speech) kullanarak metinlerden yüksek kaliteli ses dosyaları oluşturur.
-- **NLP Timestamp Hizalama:** Whisper'dan gelen ham timestamp verilerini NLP (compromise.js) kullanarak doğal cümle sınırlarına göre otomatik düzeltir.
-- **Format Dönüştürme:** Tarayıcı üzerinde FFmpeg.wasm kullanarak ses dosyalarını istenilen formatlara dönüştürür.
-- **SQL Generate:** Üretilen verileri doğrudan Supabase/PostgreSQL veritabanına eklemek için hazır SQL insert sorguları oluşturur.
-- **Güvenli:** API key'lerinizi kodda tutmaz, tarayıcının yerel depolama alanında (localStorage) güvenli bir şekilde saklar.
+- **Audio Generation:** Create high-quality audio files from text using OpenAI TTS (Text-to-Speech).
+- **NLP Timestamp Alignment:** Automatically aligns raw Whisper timestamp data into natural sentence boundaries using NLP (compromise.js).
+- **Format Conversion:** Convert audio files to desired formats directly in the browser using FFmpeg.wasm.
+- **SQL Generation:** Generate ready-to-use SQL INSERT queries for adding data directly to Supabase/PostgreSQL databases.
+- **Secure:** Your API keys are not stored in the codebase. They are safely kept in your browser's local storage.
 
-## Ekran Görüntüleri
+## Screenshots
 
 ![Step 1](images/image_1.png)
 ![Step 2](images/image_2.png)
 
-## Kurulum
+## Installation
 
-1. Depoyu klonlayın:
+1. Clone the repository:
    ```bash
    git clone https://github.com/aykutssert/audio-processor.git
    ```
-2. Bağımlılıkları yükleyin:
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. Uygulamayı başlatın:
+3. Start the application:
    ```bash
    npm run dev
    ```
 
-## Teknolojiler
+## Technologies
 
 - React + Vite
 - Tailwind CSS
