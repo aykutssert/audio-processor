@@ -1,44 +1,43 @@
-# Audio Processor & Podcast Admin Panel
+# Audio Processor (Podcast Tool)
 
-Internal admin dashboard designed for automated podcast production. It processes raw content into production-ready assets through AI audio generation, NLP-based timestamp alignment, and automated database integration.
+This repository serves as an **Internal Admin Panel** for an active, live production project. It is used to manage and automate podcast production workflows, providing a streamlined interface for audio generation, data processing, and database management.
 
-## Core Pipeline
 
-1. **Audio Generation:** Text-to-speech conversion using high-fidelity narration models.
-2. **Dynamic Alignment:** Post-processing raw transcripts into natural sentence boundaries with precise millisecond timestamps.
-3. **Format Conversion:** Client-side transcoding to production-standard audio containers.
-4. **Database Integration:** Sanitized SQL generation for direct metadata insertion.
+A professional tool designed to automate the podcast production workflow. It manages the entire process from audio generation to SQL outputs using OpenAI TTS, Whisper, and FFmpeg.
 
-## Functionality
 
-- **Sentence Alignment:** Uses NLP to regroup fragmented transcripts into grammatically correct sentences while maintaining timing accuracy.
-- **Client-Side Processing:** Performs audio conversion and data sanitization directly in the browser.
-- **Key Management:** API keys are managed locally within your browser's storage and never sent to a central server.
-- **Prompt Management:** Save and reuse prompt templates for consistent content generation.
+## Features
 
-## Technical Stack
+- **Audio Generation:** Create high-quality audio files from text using OpenAI TTS (Text-to-Speech).
+- **NLP Timestamp Alignment:** Automatically aligns raw Whisper timestamp data into natural sentence boundaries using NLP (compromise.js).
+- **Format Conversion:** Convert audio files to desired formats directly in the browser using FFmpeg.wasm.
+- **SQL Generation:** Generate ready-to-use SQL INSERT queries for adding data directly to Supabase/PostgreSQL databases.
+- **Secure:** Your API keys are not stored in the codebase. They are safely kept in your browser's local storage.
+
+## Screenshots
+
+![Step 1](images/image_1.png)
+![Step 2](images/image_2.png)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/aykutssert/audio-processor.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the application:
+   ```bash
+   npm run dev
+   ```
+
+## Technologies
 
 - React + Vite
 - Tailwind CSS
 - OpenAI API (TTS & Whisper)
 - FFmpeg.wasm
 - Compromise.js (NLP)
-
-## Setup
-
-1. Clone and install dependencies:
-   ```bash
-   git clone https://github.com/aykutssert/audio-processor.git
-   npm install
-   ```
-2. Start development server:
-   ```bash
-   npm run dev
-   ```
-
-## Screenshots
-
-<div align="center">
-  <img src="images/image_1.png" alt="Interface 1" width="45%" />
-  <img src="images/image_2.png" alt="Interface 2" width="45%" />
-</div>
