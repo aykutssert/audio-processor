@@ -1,6 +1,7 @@
 # Audio Processor (Podcast Tool)
 
-This repository serves as an **Admin Panel** for managing and automating various podcast production tasks. It provides a streamlined interface for audio generation, data processing, and database integration.
+This repository serves as an **Internal Admin Panel** for an active, live production project. It is used to manage and automate podcast production workflows, providing a streamlined interface for audio generation, data processing, and database management.
+
 
 A professional tool designed to automate the podcast production workflow. It manages the entire process from audio generation to SQL outputs using OpenAI TTS, Whisper, and FFmpeg.
 
