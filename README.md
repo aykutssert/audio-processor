@@ -10,8 +10,11 @@ A professional tool designed to automate the podcast production workflow. It man
 
 - **Audio Generation:** Create high-quality audio files from text using OpenAI TTS (Text-to-Speech).
 - **NLP Timestamp Alignment:** Automatically aligns raw Whisper timestamp data into natural sentence boundaries using NLP (compromise.js).
-- **Format Conversion:** Convert audio files to desired formats directly in the browser using FFmpeg.wasm.
-- **SQL Generation:** Generate ready-to-use SQL INSERT queries for adding data directly to Supabase/PostgreSQL databases.
+### Production Utilities
+- **FFmpeg Integration:** Encodes audio to high-efficiency M4A containers directly in the client.
+- **SQL Sanitization:** Automatically handles escaping and JSONB formatting for complex metadata stored in PostgreSQL.
+- **Prompt Management:** You can save and manage your frequently used prompt templates to ensure consistency across different podcast episodes.
+- **Easy Deployment:** The project can be easily deployed using platforms like Vercel or Netlify (Hobby plans), allowing you to host and use it for your own production needs at no cost.
 - **Secure:** Your API keys are not stored in the codebase. They are safely kept in your browser's local storage.
 
 ## Screenshots
